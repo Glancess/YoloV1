@@ -13,9 +13,9 @@ from predict_val import predict_val
 
 # 1. 固定参数，想改什么就直接改这里
 # 在YoloV1项目目录里运行：python main.py
-# Data目录里面应该包含VOCdevkit
+# 服务器datasets目录里面应该包含VOCdevkit
 
-data_root = "./Data"
+data_root = "/home/gpu/datasets"
 save_dir = "./checkpoints"
 prediction_dir = "./val_predictions"
 

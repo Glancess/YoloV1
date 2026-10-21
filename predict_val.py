@@ -136,7 +136,7 @@ def predict_val(model, data_root, save_dir, device, num_images=10,
 
 if __name__ == "__main__":
     # 单独看结果时，在项目目录运行：python predict_val.py
-    data_root = "./Data"
+    data_root = "/home/gpu/datasets"
     model_path = "./checkpoints/best_model.pth"
     save_dir = "./val_predictions/manual"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

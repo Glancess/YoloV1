@@ -19,7 +19,7 @@ def collate_fn(batch):
     return images, boxes, labels, cells
 
 
-def get_loader(which, root="./Data", batch_size=2, num_workers=0, max_samples=None):
+def get_loader(which, root="/home/gpu/datasets", batch_size=2, num_workers=0, max_samples=None):
     # 1. 创建 Dataset
     dataset = MyDataset(
         root=root, which=which

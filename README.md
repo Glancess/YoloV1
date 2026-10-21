@@ -10,7 +10,7 @@ python main.py
 所有参数直接写在main.py开头，不使用命令行参数：
 
 ```python
-data_root = "./Data"
+data_root = "/home/gpu/datasets"
 save_dir = "./checkpoints"
 prediction_dir = "./val_predictions"
 
@@ -22,7 +22,10 @@ train_samples = None
 val_samples = None
 ```
 
-数据目录应为 `Data/VOCdevkit/VOC2012`。数据在别的位置就直接修改data_root。
+服务器项目目录为 `/home/gpu/projects/YoloV1`，数据目录为 `/home/gpu/datasets/VOCdevkit/VOC2012`。
+
+在服务器已有的torch环境中，先运行 `python download_dataset.py` 下载、校验并解压数据，随后运行 `python main.py`。
+下载会续传已有压缩包；数据在别的位置就修改代码中的data_root。
 None表示完整数据集；本机检查流程时，可以直接改成epochs=3、train_samples=16、val_samples=10。
 服务器正式训练时把train_samples和val_samples改回None。
 ResNet18使用ImageNet预训练权重，首次需要下载或提前缓存。

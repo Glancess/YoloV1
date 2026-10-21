@@ -87,7 +87,7 @@ class MyDataset(Dataset):
 
 
 if __name__ == "__main__":
-    dataset = MyDataset("/Users/alen/Code/Pytorcc/projects/YoloV1/Data", "train")
+    dataset = MyDataset("/home/gpu/datasets", "train")
 
     image, boxes, labels, cells = dataset[0]
     print(boxes)
