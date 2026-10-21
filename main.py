@@ -10,7 +10,6 @@ from Train.train_one_epoch import train_one_epoch
 from Train.val import val
 from predict_val import predict_val
 
-
 # 1. 固定参数，想改什么就直接改这里
 # 在YoloV1项目目录里运行：python main.py
 # 服务器datasets目录里面应该包含VOCdevkit
@@ -20,7 +19,7 @@ save_dir = "./checkpoints"
 prediction_dir = "./val_predictions"
 
 epochs = 50
-batch_size = 2
+batch_size = 6
 lr = 0.0001
 num_workers = 0
 
@@ -39,12 +38,18 @@ def main():
 
     # 2. DataLoader
     train_loader = get_loader(
-        "train", root=data_root, batch_size=batch_size,
-        num_workers=num_workers, max_samples=train_samples,
+        "train",
+        root=data_root,
+        batch_size=batch_size,
+        num_workers=num_workers,
+        max_samples=train_samples,
     )
     val_loader = get_loader(
-        "val", root=data_root, batch_size=batch_size,
-        num_workers=num_workers, max_samples=val_samples,
+        "val",
+        root=data_root,
+        batch_size=batch_size,
+        num_workers=num_workers,
+        max_samples=val_samples,
     )
     print("train images:", len(train_loader.dataset))
     print("val images:", len(val_loader.dataset))
@@ -67,9 +72,7 @@ def main():
     for epoch in range(epochs):
         print(f"\nEpoch [{epoch + 1}/{epochs}]")
 
-        train_loss = train_one_epoch(
-            model, train_loader, criterion, optimizer, device
-        )
+        train_loss = train_one_epoch(model, train_loader, criterion, optimizer, device)
         val_result = val(model, val_loader, criterion, device)
 
         print(
@@ -91,13 +94,19 @@ def main():
         # 6. 每轮结束，加载目前最好的权重，预测val前10张
         best_weights = torch.load(
             os.path.join(save_dir, "best_model.pth"),
-            map_location=device, weights_only=True,
+            map_location=device,
+            weights_only=True,
         )
         best_model.load_state_dict(best_weights)
         epoch_dir = os.path.join(prediction_dir, f"epoch_{epoch + 1:03d}")
         predict_val(
-            best_model, data_root, epoch_dir, device,
-            num_images=10, best_epoch=best_epoch, best_map50=best_map50,
+            best_model,
+            data_root,
+            epoch_dir,
+            device,
+            num_images=10,
+            best_epoch=best_epoch,
+            best_map50=best_map50,
         )
 
         # 7. 保存每轮数字，方便看Loss和mAP的变化
